@@ -7,6 +7,11 @@
     "types": ["node", "./types"],
     "skipLibCheck": true,
 
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["ui/*"]
+    },
+
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
