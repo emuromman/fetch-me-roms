@@ -1,22 +1,6 @@
 import { ipcMain, WebContents, WebFrameMain } from "electron";
 import { pathToFileURL } from "url";
-
-import path from "path";
-import { app } from "electron";
-
-export function getPreloadPath() {
-  const root = process.env.NODE_ENV === "development" ? "." : "..";
-  return path.join(app.getAppPath(), root, "dist-electron/preload.cjs");
-}
-
-export function getUIPath() {
-  return path.join(app.getAppPath(), "/dist-react/index.html");
-}
-
-export function getAssetPath() {
-  const root = process.env.NODE_ENV === "development" ? "." : "..";
-  return path.join(app.getAppPath(), root, "/src/assets");
-}
+import { config } from "./config.js";
 
 // Helper function to make registering of event handlers type safe
 // Change IpcEvents as api grows (used for responding to
@@ -57,7 +41,7 @@ export function validateEventFrame(frame: WebFrameMain | null) {
     return;
   }
 
-  if (frame.url !== pathToFileURL(getUIPath()).toString()) {
+  if (frame.url !== pathToFileURL(config.paths.ui).toString()) {
     throw new Error("Malicious event");
   }
 }
