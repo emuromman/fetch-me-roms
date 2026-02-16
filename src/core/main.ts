@@ -11,6 +11,7 @@ function mockStartDownload(downloadList: DownloadItem[]): DownloadResponse {
 
 app.on("ready", () => {
   const mainWindow = new BrowserWindow({
+    alwaysOnTop: config.isDev,
     webPreferences: {
       preload: config.paths.preload,
     },
@@ -18,8 +19,12 @@ app.on("ready", () => {
 
   if (config.isDev) {
     mainWindow.loadURL("http://localhost:3000");
+    app.setAsDefaultProtocolClient("fetch-me-roms", process.execPath, [
+      process.argv[1],
+    ]);
   } else {
     mainWindow.loadFile(config.paths.ui);
+    app.setAsDefaultProtocolClient("fetch-me-roms");
   }
 
   ipcMainHandle("download", mockStartDownload);
