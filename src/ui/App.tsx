@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Button } from "@/components/ui/button";
+import Dashboard from "./Dashboard";
 
 function App() {
   useEffect(() => {
@@ -9,13 +9,7 @@ function App() {
     window.core.download(list).then((data) => console.log(data));
   }, []);
 
-  return (
-    <>
-      <div className="flex min-h-svh w-full flex-col items-center justify-center">
-        <Button variant="default">Click me</Button>
-      </div>
-    </>
-  );
+  return <Dashboard />;
 }
 
 export default App;
